@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#14264d">
+<title>Jadwal Kerja — Shift Calendar</title>
+<style>
+:root{--navy:#14264d;--blue:#2563eb;--ink:#172033;--muted:#64748b;--line:#e5eaf2;--bg:#f3f6fb;--white:#fff;--morning:#fef3c7;--morning-ink:#92400e;--night:#dbeafe;--night-ink:#1e40af;--off:#dcfce7;--off-ink:#166534}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:760px;margin:auto;padding:16px 14px 36px}.hero{background:linear-gradient(135deg,#14264d,#2563eb);color:white;padding:22px;border-radius:22px;box-shadow:0 12px 30px #17356a22}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#bfdbfe;font-weight:800}.hero h1{font-size:26px;margin:7px 0}.hero p{margin:0;color:#dbeafe;font-size:14px;line-height:1.5}.today-chip{background:#ffffff20;border:1px solid #ffffff35;padding:8px 11px;border-radius:999px;font-size:12px;white-space:nowrap}.card{background:white;border:1px solid #e9eef6;border-radius:18px;padding:17px;margin-top:14px;box-shadow:0 5px 18px #15264a09}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.section-head h2,.card h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:13px;line-height:1.5}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.fields3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}label{display:block;font-size:12px;font-weight:800;color:#475569;margin-bottom:6px}input[type=date],input[type=number],input[type=time],select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:11px;background:white;color:var(--ink)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{padding:11px 14px;border-radius:11px;font-weight:800;font-size:13px;background:#1d4ed8;color:white}.btn.secondary{background:#eef2ff;color:#1e40af}.btn.ghost{background:#f1f5f9;color:#334155}.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}.result{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;background:#f8fafc;border:1px solid var(--line);border-radius:15px;padding:14px;margin-top:14px}.result small{display:block;color:var(--muted);font-size:12px}.result strong{display:block;font-size:25px;margin:3px 0}.result .detail{font-size:13px;color:#475569}.pill{padding:8px 12px;border-radius:999px;font-size:11px;font-weight:900}.pagi{background:var(--morning);color:var(--morning-ink)}.malam{background:var(--night);color:var(--night-ink)}.libur{background:var(--off);color:var(--off-ink)}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.month-label{font-size:18px;font-weight:900;text-transform:capitalize}.month-nav{display:flex;gap:6px}.icon-btn{width:38px;height:38px;border-radius:10px;background:#f1f5f9;color:#334155;font-size:20px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 6px}.legend span{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#475569}.dot{width:9px;height:9px;border-radius:3px;display:inline-block}.note{font-size:11px;color:var(--muted);margin:0 0 12px;line-height:1.4}.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday{text-align:center;color:#64748b;font-size:11px;font-weight:800;padding:5px 0}.day{min-height:66px;border:1px solid #e8edf4;border-radius:10px;padding:7px 5px;background:white;text-align:left;position:relative;overflow:hidden}.day .num{font-size:13px;font-weight:900}.day .shift{display:block;font-size:10px;font-weight:900;margin-top:7px;letter-spacing:.02em}.day.pagi{background:var(--morning);border-color:#f8df91;color:var(--morning-ink)}.day.malam{background:var(--night);border-color:#bfdbfe;color:var(--night-ink)}.day.libur{background:var(--off);border-color:#bbf7d0;color:var(--off-ink)}.day.outside{opacity:.45}.day.today{outline:2px solid #2563eb;outline-offset:-2px}.day.selected{box-shadow:inset 0 0 0 2px #0f172a}.day:focus-visible{outline:3px solid #60a5fa}.day-detail{margin-top:12px;padding:12px;border-radius:12px;background:#f8fafc;border:1px solid var(--line);font-size:13px;line-height:1.5}.day-detail strong{font-size:15px}.foot{font-size:11px;color:#94a3b8;text-align:center;margin:18px 0 0}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#172033;color:white;padding:10px 15px;border-radius:999px;font-size:12px;box-shadow:0 8px 25px #0003;display:none;z-index:5}.toast.show{display:block}
+.day.has-note::after{content:"";position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:#dc2626}.note-box{margin-top:12px;padding:12px;border-radius:12px;background:#f8fafc;border:1px solid var(--line)}.note-box textarea{width:100%;min-height:76px;padding:11px;border:1px solid #cbd5e1;border-radius:11px;resize:vertical;color:var(--ink);background:white;line-height:1.4}.note-box textarea:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}.note-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.note-status{font-size:11px;color:var(--muted);margin-left:auto;align-self:center}.note-help{font-size:11px;color:var(--muted);margin:10px 0 0;line-height:1.4}
+@media(max-width:480px){.app{padding:10px}.hero{padding:18px}.hero h1{font-size:23px}.fields{grid-template-columns:1fr}.day{min-height:57px;padding:6px 3px}.day .shift{font-size:9px}.calendar{gap:3px}.result strong{font-size:22px}}
+@media print{body{background:white}.app{max-width:none;padding:0}.hero{background:#14264d!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}.actions,.month-nav,.foot{display:none!important}.card{box-shadow:none;break-inside:avoid}.day{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+ <div class="topline"><div><div class="brand">Shift planner</div><h1>Jadwal Kerja</h1><p>Temukan jadwal shift dan lihat kalender kerja bulanan Anda.</p></div><div class="today-chip" id="todayChip">Hari ini</div></div>
+</header>
+
+<section class="card">
+ <div class="section-head"><h2>Pengaturan siklus kerja</h2></div>
+ <p class="muted">Pilih satu tanggal yang jadwalnya Anda ketahui, lalu tentukan posisinya di dalam siklus. Pola hari bisa disesuaikan dengan jadwal Anda.</p>
+ <div class="fields">
+  <div><label for="anchor">TANGGAL PATOKAN</label><input type="date" id="anchor"></div>
+  <div><label for="phase">POSISI TANGGAL PATOKAN</label><select id="phase"></select></div>
+ </div>
+ <div class="fields3">
+  <div><label for="nPagi">HARI PAGI</label><input type="number" id="nPagi" min="0" max="14" inputmode="numeric" value="2"></div>
+  <div><label for="nMalam">HARI MALAM</label><input type="number" id="nMalam" min="0" max="14" inputmode="numeric" value="2"></div>
+  <div><label for="nLibur">HARI LIBUR</label><input type="number" id="nLibur" min="0" max="14" inputmode="numeric" value="2"></div>
+ </div>
+ <div class="fields">
+  <div><label for="target">TANGGAL YANG DICARI</label><input type="date" id="target"></div>
+ </div>
+ <div class="actions"><button class="btn" id="todayBtn" type="button">Jadwal hari ini</button><button class="btn ghost" id="resetBtn" type="button">Hapus pengaturan</button></div>
+ <div class="result" id="result" aria-live="polite"><div><small>Jadwal pada tanggal pilihan</small><strong id="resultShift">—</strong><div class="detail" id="resultDetail">Isi tanggal patokan dulu.</div></div><span class="pill pagi" id="resultPill" hidden>PAGI</span></div>
+</section>
+
+<section class="card">
+ <div class="calendar-head"><div><div class="muted">KALENDER SHIFT</div><div class="month-label" id="monthLabel">—</div></div><div class="month-nav"><button class="icon-btn" id="prevMonth" type="button" aria-label="Bulan sebelumnya">‹</button><button class="icon-btn" id="nextMonth" type="button" aria-label="Bulan berikutnya">›</button></div></div>
+ <div class="legend"><span><i class="dot" style="background:#fbbf24"></i>Pagi</span><span><i class="dot" style="background:#60a5fa"></i>Malam</span><span><i class="dot" style="background:#4ade80"></i>Libur</span></div>
+ <p class="note">Shift malam dihitung pada hari mulainya, termasuk jika selesai keesokan paginya.</p>
+ <div class="calendar" id="calendar" aria-label="Kalender jadwal kerja"></div>
+ <div class="day-detail" id="dayDetail">Pilih tanggal pada kalender untuk melihat rincian shift.</div>
+ <div class="note-box" id="noteBox" hidden>
+  <label for="noteText">CATATAN UNTUK TANGGAL INI</label>
+  <textarea id="noteText" maxlength="500" placeholder="Contoh: bawa surat izin, servis motor sore"></textarea>
+  <div class="note-row">
+   <div><label for="noteTime">JAM PENGINGAT</label><input type="time" id="noteTime"></div>
+   <div><label for="noteLead">ALARM BUNYI</label><select id="noteLead"><option value="0">Tepat waktu</option><option value="10">10 menit sebelumnya</option><option value="30">30 menit sebelumnya</option><option value="60">1 jam sebelumnya</option><option value="1440">1 hari sebelumnya</option></select></div>
+  </div>
+  <div class="actions"><button class="btn" id="icsBtn" type="button">Buat alarm di kalender HP</button><button class="btn ghost" id="delNoteBtn" type="button">Hapus catatan</button><span class="note-status" id="noteStatus" aria-live="polite"></span></div>
+  <p class="note-help">Catatan tersimpan otomatis di browser ini. Alarm dibuat lewat file kalender (.ics): buka file itu di aplikasi kalender HP Anda agar alarmnya berbunyi.</p>
+ </div>
+ <div class="actions"><button class="btn secondary" id="exportBtn" type="button">Ekspor CSV</button><button class="btn ghost" id="printBtn" type="button">Cetak / Simpan PDF</button></div>
+</section>
+<p class="foot">Jadwal dihitung di perangkat Anda. Pengaturan tersimpan di browser ini.</p>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(() => {
+ const $ = id => document.getElementById(id);
+ const KEY = 'shiftSettings';
+ const store = {
+   get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+   set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+ };
+ const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+ const parse = s => { if(!s) return null; const [y,m,d]=s.split('-').map(Number); return new Date(Date.UTC(y,m-1,d)); };
+ const diff = (a,b) => Math.round((parse(b)-parse(a))/86400000);
+ const fmt = d => new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(d);
+ const rel = n => n===0 ? 'Tepat di tanggal patokan.' : n>0 ? `${n} hari setelah tanggal patokan.` : `${-n} hari sebelum tanggal patokan.`;
+
+ let today = new Date();
+ let view = new Date(today.getFullYear(), today.getMonth(), 1);
+ let selected = iso(today);
+ let seq = [];
+ let notes = {};
+ let noteKey = '';
+
+ const toast = msg => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast.id); toast.id=setTimeout(()=>t.classList.remove('show'),2200); };
+ const updateChip = () => { $('todayChip').textContent = new Intl.DateTimeFormat('id-ID',{weekday:'short',day:'numeric',month:'short'}).format(today); };
+
+ function readPattern(){
+   const g = id => { const v=parseInt($(id).value,10); return Number.isFinite(v) ? Math.min(14,Math.max(0,v)) : 0; };
+   return {pagi:g('nPagi'), malam:g('nMalam'), libur:g('nLibur')};
+ }
+ function buildSeq(){
+   const p = readPattern(); seq = [];
+   [['pagi','PAGI','Pagi'],['malam','MALAM','Malam'],['libur','LIBUR','Libur']].forEach(([k,L,T]) => {
+     for(let n=1;n<=p[k];n++) seq.push({label:L, cls:k, detail:`${T} hari ke-${n}`});
+   });
+ }
+ function fillPhase(keep){
+   const sel = $('phase'); sel.innerHTML = '';
+   seq.forEach((s,i) => { const o=document.createElement('option'); o.value=i; o.textContent=s.detail; sel.appendChild(o); });
+   sel.value = String(Math.min(Math.max(keep||0,0), Math.max(seq.length-1,0)));
+ }
+ const offset = () => parseInt($('phase').value,10) || 0;
+ function save(){ store.set(KEY, JSON.stringify({anchor:$('anchor').value, ...readPattern(), offset:offset()})); }
+
+ function calc(date){
+   const a = $('anchor').value;
+   if(!a || !date || !seq.length) return null;
+   const days = diff(a,date), n = seq.length, i = (((days+offset())%n)+n)%n;
+   return {days, ...seq[i]};
+ }
+ function hint(){
+   if(!$('anchor').value) return 'Isi tanggal patokan dulu.';
+   if(!seq.length) return 'Isi minimal satu hari pada pola.';
+   return 'Pilih tanggal yang ingin dicari.';
+ }
+ function showResult(date){
+   const r = calc(date), pill = $('resultPill');
+   if(!r){ $('resultShift').textContent='—'; $('resultDetail').textContent=hint(); pill.hidden=true; return; }
+   $('resultShift').textContent = r.label;
+   $('resultDetail').textContent = `${r.detail} · ${rel(r.days)}`;
+   pill.hidden = false; pill.textContent = r.label; pill.className = 'pill '+r.cls;
+ }
+ function showDay(date){
+   loadNote(date);
+   const r = calc(date);
+   if(!date){ $('dayDetail').textContent='Pilih tanggal pada kalender untuk melihat rincian shift.'; return; }
+   $('dayDetail').innerHTML = r ? `<strong>${fmt(parse(date))} — ${r.label}</strong><br>${r.detail}. ${rel(r.days)}` : hint();
+ }
+ function persistNotes(){ store.set('shiftNotes', JSON.stringify(notes)); }
+ function loadNote(date){
+   noteKey = date || '';
+   $('noteBox').hidden = !date;
+   $('noteStatus').textContent = '';
+   if(!date) return;
+   const n = notes[date] || {};
+   $('noteText').value = n.text || '';
+   $('noteTime').value = n.time || '';
+   $('noteLead').value = String(n.lead != null ? n.lead : '0');
+   if(!$('noteLead').value) $('noteLead').value = '0';
+ }
+ function markNote(k){
+   const b = $('calendar').querySelector(`[data-key="${k}"]`); if(!b) return;
+   const r = calc(k);
+   b.classList.toggle('has-note', !!notes[k]);
+   b.setAttribute('aria-label', `${fmt(parse(k))}: ${r?r.label:'jadwal belum tersedia'}${notes[k]?', ada catatan':''}`);
+ }
+ function saveNote(){
+   const k = noteKey; if(!k) return;
+   const text = $('noteText').value, time = $('noteTime').value, lead = $('noteLead').value;
+   if(!text.trim() && !time) delete notes[k]; else notes[k] = {text, time, lead};
+   persistNotes(); markNote(k);
+   $('noteStatus').textContent = 'Tersimpan';
+ }
+ const p2 = n => String(n).padStart(2,'0');
+ const icsStamp = d => `${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}T${p2(d.getHours())}${p2(d.getMinutes())}00`;
+ const icsText = v => String(v).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n');
+ function makeAlarm(){
+   if(!noteKey) return;
+   const time = $('noteTime').value;
+   if(!time){ toast('Isi jam pengingat dulu'); $('noteTime').focus(); return; }
+   const [y,m,d] = noteKey.split('-').map(Number), [hh,mm] = time.split(':').map(Number);
+   const start = new Date(y,m-1,d,hh,mm), end = new Date(start.getTime()+30*60000);
+   const text = $('noteText').value.trim(), r = calc(noteKey);
+   const summary = `${r ? r.label+' — ' : ''}${text.split('\n')[0].slice(0,60) || 'Pengingat'}`;
+   const lead = parseInt($('noteLead').value,10) || 0;
+   const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Jadwal Kerja//ID','CALSCALE:GREGORIAN','BEGIN:VEVENT',
+     `UID:${noteKey}-${p2(hh)}${p2(mm)}@jadwal-kerja`,
+     `DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'')}`,
+     `DTSTART:${icsStamp(start)}`,`DTEND:${icsStamp(end)}`,`SUMMARY:${icsText(summary)}`];
+   if(text) lines.push(`DESCRIPTION:${icsText(text)}`);
+   lines.push('BEGIN:VALARM','ACTION:DISPLAY',`DESCRIPTION:${icsText(summary)}`,`TRIGGER:${lead===0?'PT0S':'-PT'+lead+'M'}`,'END:VALARM','END:VEVENT','END:VCALENDAR');
+   const url = URL.createObjectURL(new Blob([lines.join('\r\n')+'\r\n'],{type:'text/calendar;charset=utf-8'})), a = document.createElement('a');
+   a.href = url; a.download = `pengingat-${noteKey}.ics`;
+   document.body.appendChild(a); a.click();
+   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+   toast('File kalender dibuat. Buka untuk menambahkan alarm.');
+ }
+ function renderCalendar(focusKey){
+   const y=view.getFullYear(), m=view.getMonth();
+   $('monthLabel').textContent = new Intl.DateTimeFormat('id-ID',{month:'long',year:'numeric'}).format(view);
+   const first=new Date(y,m,1), offs=(first.getDay()+6)%7, daysIn=new Date(y,m+1,0).getDate(), prevDays=new Date(y,m,0).getDate();
+   const cal=$('calendar'); cal.innerHTML='';
+   ['Sen','Sel','Rab','Kam','Jum','Sab','Min'].forEach(w => { const e=document.createElement('div'); e.className='weekday'; e.textContent=w; cal.appendChild(e); });
+   const todayKey = iso(today);
+   for(let n=0;n<42;n++){
+     let dayNum, dateObj, outside=false;
+     if(n<offs){ dayNum=prevDays-offs+n+1; dateObj=new Date(y,m-1,dayNum); outside=true; }
+     else if(n>=offs+daysIn){ dayNum=n-offs-daysIn+1; dateObj=new Date(y,m+1,dayNum); outside=true; }
+     else { dayNum=n-offs+1; dateObj=new Date(y,m,dayNum); }
+     const key=iso(dateObj), r=calc(key), b=document.createElement('button');
+     b.type='button'; b.dataset.key=key;
+     b.className='day'+(outside?' outside':'')+(key===todayKey?' today':'')+(key===selected?' selected':'')+(r?' '+r.cls:'')+(notes[key]?' has-note':'');
+     b.setAttribute('aria-label',`${fmt(parse(key))}: ${r?r.label:'jadwal belum tersedia'}${notes[key]?', ada catatan':''}`);
+     b.setAttribute('aria-pressed', key===selected ? 'true' : 'false');
+     if(key===todayKey) b.setAttribute('aria-current','date');
+     b.innerHTML = `<span class="num">${dayNum}</span>${r?`<span class="shift">${r.label}</span>`:''}`;
+     b.addEventListener('click', () => selectDate(key));
+     cal.appendChild(b);
+   }
+   if(focusKey){ const f=cal.querySelector(`[data-key="${focusKey}"]`); if(f) f.focus({preventScroll:true}); }
+ }
+ function selectDate(key){
+   selected = key; $('target').value = key;
+   const d = parse(key);
+   view = new Date(d.getUTCFullYear(), d.getUTCMonth(), 1);
+   showResult(key); showDay(key); renderCalendar(key);
+ }
+ function refresh(){ showResult($('target').value); showDay($('target').value); renderCalendar(); }
+
+ $('noteText').addEventListener('input', saveNote);
+ $('noteTime').addEventListener('change', saveNote);
+ $('noteLead').addEventListener('change', saveNote);
+ $('icsBtn').addEventListener('click', makeAlarm);
+ $('delNoteBtn').addEventListener('click', () => {
+   if(!noteKey) return;
+   delete notes[noteKey]; persistNotes(); markNote(noteKey);
+   $('noteText').value=''; $('noteTime').value=''; $('noteLead').value='0'; $('noteStatus').textContent='';
+   toast('Catatan dihapus');
+ });
+ $('target').addEventListener('change', () => {
+   const v = $('target').value;
+   if(!v){ selected=''; refresh(); return; }
+   selectDate(v);
+ });
+ $('anchor').addEventListener('change', () => { save(); refresh(); });
+ $('phase').addEventListener('change', () => { save(); refresh(); });
+ ['nPagi','nMalam','nLibur'].forEach(id => $(id).addEventListener('change', () => {
+   const keep = offset();
+   buildSeq(); fillPhase(keep); save();
+   if(!seq.length) toast('Isi minimal satu hari pada pola');
+   refresh();
+ }));
+ $('todayBtn').addEventListener('click', () => { today=new Date(); updateChip(); selectDate(iso(today)); });
+ $('resetBtn').addEventListener('click', () => {
+   $('anchor').value=''; $('nPagi').value=2; $('nMalam').value=2; $('nLibur').value=2;
+   buildSeq(); fillPhase(0); save(); refresh(); toast('Pengaturan dihapus');
+ });
+ $('prevMonth').addEventListener('click', () => { view=new Date(view.getFullYear(),view.getMonth()-1,1); renderCalendar(); });
+ $('nextMonth').addEventListener('click', () => { view=new Date(view.getFullYear(),view.getMonth()+1,1); renderCalendar(); });
+ $('printBtn').addEventListener('click', () => window.print());
+ $('exportBtn').addEventListener('click', () => {
+   if(!$('anchor').value || !seq.length){ toast('Isi tanggal patokan dan pola dulu'); return; }
+   const y=view.getFullYear(), m=view.getMonth(), count=new Date(y,m+1,0).getDate();
+   const dayName = new Intl.DateTimeFormat('id-ID',{weekday:'long',timeZone:'UTC'});
+   const rows = [['Tanggal','Hari','Jadwal','Keterangan','Catatan']];
+   for(let d=1; d<=count; d++){ const date=iso(new Date(y,m,d)), r=calc(date); rows.push([date, dayName.format(parse(date)), r.label, r.detail, (notes[date] && notes[date].text) || '']); }
+   const csv = '\uFEFF'+rows.map(row => row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(';')).join('\r\n');
+   const url = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})), a = document.createElement('a');
+   a.href=url; a.download=`jadwal-kerja-${y}-${String(m+1).padStart(2,'0')}.csv`;
+   document.body.appendChild(a); a.click();
+   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+   toast('File CSV berhasil dibuat');
+ });
+ document.addEventListener('visibilitychange', () => {
+   if(document.visibilityState==='visible' && iso(new Date())!==iso(today)){ today=new Date(); updateChip(); refresh(); }
+ });
+
+ // Muat pengaturan tersimpan (termasuk format lama yang hanya menyimpan tanggal patokan)
+ let saved = {};
+ try{ saved = JSON.parse(store.get(KEY) || '{}') || {}; }catch(e){ saved = {}; }
+ if(!saved.anchor){ const old = store.get('shiftAnchor'); if(old) saved.anchor = old; }
+ if(saved.anchor) $('anchor').value = saved.anchor;
+ ['pagi','malam','libur'].forEach(k => { if(Number.isFinite(saved[k])) $('n'+k[0].toUpperCase()+k.slice(1)).value = saved[k]; });
+ try{ notes = JSON.parse(store.get('shiftNotes') || '{}') || {}; }catch(e){ notes = {}; }
+ buildSeq(); fillPhase(saved.offset);
+ updateChip();
+ $('target').value = selected;
+ refresh();
+})();
+</script>
+</body>
+</html>
